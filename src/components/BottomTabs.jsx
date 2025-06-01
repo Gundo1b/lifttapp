@@ -1,23 +1,25 @@
 'use client';
 import './BottomTabs.css';
 import { useState } from 'react';
-import AvailableRides from './AvailableRides';
-import PreviousRides from './PreviousRides';
+import AvailablePassengers from './AvailablePassengers';
+import PreviousPassengers from './PreviousPassengers';
 import Profile from './Profile';
 
-const MyRides = () => (
+const MyPassengers = () => (
   <div style={{ padding: '10px', color: '#fff' }}>
-    <h3>My Rides</h3>
-    <p>List of your rides will appear here.</p>
+    <h3>My Passengers</h3>
+    <p>List of your passengers will appear here.</p>
   </div>
 );
 
-const Settings = () => (
-  <div style={{ padding: '10px', color: '#fff' }}>
-    <h3>Settings</h3>
-    <p>Settings options will appear here.</p>
-  </div>
-);
+const Settings = () => {
+  return (
+    <div style={{ padding: '10px', color: '#fff' }}>
+      <h3>Settings</h3>
+      <p>Settings options will appear here.</p>
+    </div>
+  );
+};
 
 const AddTrip = () => {
   const [from, setFrom] = useState('');
@@ -96,25 +98,6 @@ const AddTrip = () => {
         />
       </div>
       <div style={{ marginBottom: '10px' }}>
-        <label htmlFor="people" style={{ display: 'block', marginBottom: '4px' }}>How many people:</label>
-        <input
-          id="people"
-          type="number"
-          min="1"
-          value={people}
-          onChange={(e) => setPeople(e.target.value)}
-          style={{
-            width: '100%',
-            padding: '8px',
-            borderRadius: '4px',
-            border: '1px solid #ccc',
-            backgroundColor: '#222',
-            color: '#fff',
-          }}
-          placeholder="Enter number of people"
-        />
-      </div>
-      <div style={{ marginBottom: '10px' }}>
         <label htmlFor="pickupTime" style={{ display: 'block', marginBottom: '4px' }}>Pickup Time:</label>
         <input
           id="pickupTime"
@@ -171,9 +154,9 @@ const BottomTabs = () => {
   const [active, setActive] = useState('available');
 
   const renderTab = () => {
-    if (active === 'available') return <AvailableRides />;
-    if (active === 'previous') return <PreviousRides />;
-    if (active === 'myrides') return <MyRides />;
+    if (active === 'available') return <AvailablePassengers />;
+    if (active === 'previous') return <PreviousPassengers />;
+    if (active === 'myrides') return <MyPassengers />;
     if (active === 'add') return <AddTrip />;
     if (active === 'settings') return <Settings />;
   };
@@ -186,8 +169,8 @@ const BottomTabs = () => {
         <button
           className={active === 'available' ? 'tab active' : 'tab'}
           onClick={() => setActive('available')}
-          aria-label="Available Rides"
-          title="Available Rides"
+          aria-label="Available Passengers"
+          title="Available Passengers"
         >
           <i className="bi bi-car-front-fill" style={{ fontSize: '1.5rem' }}></i>
         </button>

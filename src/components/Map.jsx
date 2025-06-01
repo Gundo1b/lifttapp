@@ -25,12 +25,21 @@ function ChangeView({ center, zoom }) {
 
 export default function Map({ destination }) {
   const [position, setPosition] = useState(defaultPosition);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (destination) {
       setPosition([destination.lat, destination.lon]);
     }
   }, [destination]);
+
+  if (!mounted) {
+    return <div style={{ height: '100%', width: '100%' }} />;
+  }
 
   return (
     <div style={{ height: '100%', width: '100%' }}>

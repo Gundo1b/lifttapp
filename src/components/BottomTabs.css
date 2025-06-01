@@ -1,0 +1,22 @@
+.bottom-tabs {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #333;
+  padding: 10px 0;
+  background-color: #000000; /* Uber black background */
+}
+
+.tab {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #FFFFFF; /* white text */
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.tab.active {
+  color: #1FB6FF; /* Uber blue accent */
+  font-weight: bold;
+  border-bottom: 2px solid #1FB6FF;
+}

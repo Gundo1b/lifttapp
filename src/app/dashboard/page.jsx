@@ -1,0 +1,95 @@
+// src/app/dashboard/page.jsx
+'use client';
+import dynamic from 'next/dynamic';
+import BottomTabs from '../../components/BottomTabs';
+import { useState } from 'react';
+
+const Map = dynamic(() => import('../../components/Map'), { ssr: false });
+
+export default function Dashboard() {
+  const [destination, setDestination] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  return (
+    <div style={{
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      overflow: 'hidden',  // prevent scroll on whole page
+      backgroundColor: '#000000', // Uber black background for whole dashboard
+      color: '#FFFFFF', // white text by default
+    }}>
+      <div style={{
+        flex: '0 0 40vh',   // fixed height 40% viewport height for map
+        minHeight: '300px', // optional min height for better mobile look
+        position: 'relative',
+      }}>
+        <input
+          type="text"
+          placeholder="Where to?"
+          style={{
+            position: 'absolute',
+            top: '10px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '80%',
+            padding: '10px 15px',
+            borderRadius: '25px',
+            border: '1px solid #1FB6FF',
+            fontSize: '16px',
+            outline: 'none',
+            zIndex: 1000,
+            backgroundColor: '#222',
+            color: '#fff',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
+          }}
+          onKeyDown={async (e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              const query = e.currentTarget.value;
+              if (!query) return;
+              setLoading(true);
+              try {
+                const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+                const data = await res.json();
+                if (data && data.length > 0) {
+                  const { lat, lon } = data[0];
+                  setDestination({ lat: parseFloat(lat), lon: parseFloat(lon) });
+                } else {
+                  alert('Location not found');
+                }
+              } catch (error) {
+                alert('Error fetching location');
+              } finally {
+                setLoading(false);
+              }
+            }
+          }}
+        />
+        {loading && (
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            color: '#fff',
+            fontSize: '18px',
+            fontWeight: 'bold',
+            zIndex: 1001,
+          }}>
+            Loading...
+          </div>
+        )}
+        <Map destination={destination} />
+      </div>
+
+      <div style={{
+        flex: 1,
+        overflowY: 'auto', // scroll bottom content if needed
+        backgroundColor: '#121212', // slightly lighter black for bottom tabs area
+      }}>
+        <BottomTabs />
+      </div>
+    </div>
+  );
+}

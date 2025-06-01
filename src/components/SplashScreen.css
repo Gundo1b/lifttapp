@@ -1,0 +1,24 @@
+.splash-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #000000; /* Uber black background */
+}
+
+.splash-content {
+  text-align: center;
+}
+
+.splash-logo {
+  width: 150px;
+  margin-bottom: 20px;
+  filter: brightness(0) invert(1); /* invert logo colors for dark background */
+}
+
+.splash-slogan {
+  font-size: 18px;
+  color: #FFFFFF; /* white text */
+  font-weight: bold;
+  font-family: 'Uber Move', 'Arial', sans-serif; /* Uber font or fallback */
+}

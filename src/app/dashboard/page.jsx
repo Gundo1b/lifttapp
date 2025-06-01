@@ -1,14 +1,15 @@
-// src/app/dashboard/page.jsx
 'use client';
 import dynamic from 'next/dynamic';
 import BottomTabs from '../../components/BottomTabs';
 import { useState } from 'react';
+import Profile from '../../components/Profile';
 
 const Map = dynamic(() => import('../../components/Map'), { ssr: false });
 
 export default function Dashboard() {
   const [destination, setDestination] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   return (
     <div style={{
@@ -66,6 +67,41 @@ export default function Dashboard() {
             }
           }}
         />
+        <button
+          onClick={() => setShowProfile(!showProfile)}
+          style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            zIndex: 1002,
+            backgroundColor: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            color: '#fff',
+            fontSize: '24px',
+          }}
+          aria-label="Toggle Profile"
+          title="Toggle Profile"
+        >
+          <i className="bi bi-person-circle"></i>
+        </button>
+        {showProfile && (
+          <div style={{
+            position: 'absolute',
+            top: '50px',
+            right: '10px',
+            zIndex: 1003,
+            backgroundColor: '#000',
+            border: '1px solid #444',
+            borderRadius: '8px',
+            padding: '10px',
+            width: '300px',
+            maxHeight: 'calc(40vh - 60px)',
+            overflowY: 'auto',
+          }}>
+            <Profile />
+          </div>
+        )}
         {loading && (
           <div style={{
             position: 'absolute',

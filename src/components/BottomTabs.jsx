@@ -5,6 +5,20 @@ import AvailableRides from './AvailableRides';
 import PreviousRides from './PreviousRides';
 import Profile from './Profile';
 
+const MyRides = () => (
+  <div style={{ padding: '10px', color: '#fff' }}>
+    <h3>My Rides</h3>
+    <p>List of your rides will appear here.</p>
+  </div>
+);
+
+const Settings = () => (
+  <div style={{ padding: '10px', color: '#fff' }}>
+    <h3>Settings</h3>
+    <p>Settings options will appear here.</p>
+  </div>
+);
+
 const AddTrip = () => {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
@@ -27,24 +41,6 @@ const AddTrip = () => {
     <div style={{ padding: '10px', color: '#fff' }}>
       <h3>Add Your Trip</h3>
       <div style={{ marginBottom: '10px' }}>
-        <label htmlFor="from" style={{ display: 'block', marginBottom: '4px' }}>From:</label>
-        <input
-          id="from"
-          type="text"
-          value={from}
-          onChange={(e) => setFrom(e.target.value)}
-          style={{
-            width: '100%',
-            padding: '8px',
-            borderRadius: '4px',
-            border: '1px solid #ccc',
-            backgroundColor: '#222',
-            color: '#fff',
-          }}
-          placeholder="Enter starting location"
-        />
-      </div>
-      <div style={{ marginBottom: '10px' }}>
         <label htmlFor="to" style={{ display: 'block', marginBottom: '4px' }}>Where to:</label>
         <input
           id="to"
@@ -60,6 +56,24 @@ const AddTrip = () => {
             color: '#fff',
           }}
           placeholder="Enter destination"
+        />
+      </div>
+      <div style={{ marginBottom: '10px' }}>
+        <label htmlFor="from" style={{ display: 'block', marginBottom: '4px' }}>From:</label>
+        <input
+          id="from"
+          type="text"
+          value={from}
+          onChange={(e) => setFrom(e.target.value)}
+          style={{
+            width: '100%',
+            padding: '8px',
+            borderRadius: '4px',
+            border: '1px solid #ccc',
+            backgroundColor: '#222',
+            color: '#fff',
+          }}
+          placeholder="Enter starting location"
         />
       </div>
       <div style={{ marginBottom: '10px' }}>
@@ -159,8 +173,9 @@ const BottomTabs = () => {
   const renderTab = () => {
     if (active === 'available') return <AvailableRides />;
     if (active === 'previous') return <PreviousRides />;
+    if (active === 'myrides') return <MyRides />;
     if (active === 'add') return <AddTrip />;
-    if (active === 'profile') return <Profile />;
+    if (active === 'settings') return <Settings />;
   };
 
   return (
@@ -185,6 +200,14 @@ const BottomTabs = () => {
           <i className="bi bi-clock-history" style={{ fontSize: '1.5rem' }}></i>
         </button>
         <button
+          className={active === 'myrides' ? 'tab active' : 'tab'}
+          onClick={() => setActive('myrides')}
+          aria-label="My Rides"
+          title="My Rides"
+        >
+          <i className="bi bi-list-ul" style={{ fontSize: '1.5rem' }}></i>
+        </button>
+        <button
           className={active === 'add' ? 'tab active' : 'tab'}
           onClick={() => setActive('add')}
           aria-label="Add Your Trip"
@@ -193,12 +216,12 @@ const BottomTabs = () => {
           <i className="bi bi-plus-circle" style={{ fontSize: '1.5rem' }}></i>
         </button>
         <button
-          className={active === 'profile' ? 'tab active' : 'tab'}
-          onClick={() => setActive('profile')}
-          aria-label="Profile"
-          title="Profile"
+          className={active === 'settings' ? 'tab active' : 'tab'}
+          onClick={() => setActive('settings')}
+          aria-label="Settings"
+          title="Settings"
         >
-          <i className="bi bi-person-circle" style={{ fontSize: '1.5rem' }}></i>
+          <i className="bi bi-gear" style={{ fontSize: '1.5rem' }}></i>
         </button>
       </div>
     </div>
